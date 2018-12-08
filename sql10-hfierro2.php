@@ -42,7 +42,7 @@
   $conn = new mysqli($hn, $un, $pw, $db); //mysqli research as not equal to mysql
   if ($conn->connect_error) die("Fatal Error!");
   
-  $c[0] = "Id";
+  $c[0] = "ID";
   $c[1] = "Year In";
   $c[2] = "Graduate";
   $c[3] = "Last Name";      
