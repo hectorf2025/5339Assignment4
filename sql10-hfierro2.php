@@ -24,7 +24,7 @@
   else $f[7] = '';
 
   if (isset($_POST['orderby'])) $ob = sanitizeString($_POST['orderby']);
-  //else $ob = '';
+  else $ob = '';
     
   if (isset($_POST['sort'])) $s = sanitizeString($_POST['sort']);
   //else $s = '';
@@ -118,7 +118,7 @@ echo <<<_ENDH
                
 _ENDH;
 	
-    echo '<form action="sql10-hfierro2.php" method="post">';
+    echo '<form name="graduates" action="sql10-hfierro2.php" method="post">';
     echo '<pre>';
     echo '<p>';
     echo 'Select Fields to Display on Grid:';
@@ -179,7 +179,11 @@ _ENDH;
     
         if (isset($_POST['sort'])) $s = sanitizeString($_POST['sort']);
         echo '<p2>';
-        echo '<input type="radio" name="id" value="id" checked>ID<input type="radio" name="orderby" value="graduate" >Graduate<input type="radio" name="orderby" value="lname">Last Name<input type="radio" name="orderby" value="fname">First Name<input type="radio" name="orderby" value="college">College';
+        echo '<input type="radio" name="orderby" value="id" checked>ID';
+        echo '<input type="radio" name="orderby" value="graduate"  >Graduate';
+        echo '<input type="radio" name="orderby" value="lname"     >Last Name';
+        echo '<input type="radio" name="orderby" value="fname"     >First Name';
+        echo '<input type="radio" name="orderby" value="college"   >College';
         echo '</p2>';
     
         echo '<br>';
@@ -202,23 +206,26 @@ _ENDH;
 	echo '</select>';
         echo '<p>';
         
-        
         echo "<input type='hidden' name='checkcolumns' value='yes'>";
         echo '<input type="submit">';    
         
     echo '</pre>';
     echo '</form>';                  
  
-        
-    //For next page
-    /*
-    echo "<form action='sql9-hfierro2.php' method='post'>";
-    echo "<input type='hidden' name='next' value='yes'>";
-    //echo "<input type='hidden' name='page' value='1'>";   
-    echo "<input type='submit' value='Next Page'></form>";
-  */
+    //First time page loads display all records AND 5 COLUMNS
+    if (! isset($_POST['checkcolumns']))
+    {
+        $f[0] = 'id';
+        $f[2] = 'graduate';
+        $f[3] = 'lname';
+        $f[4] = 'fname';
+        $f[5] = 'college';
+        $query2  = "SELECT * FROM degrees_final";
+        grid1($conn, $query2, $f, $c);        
+    }
+    
     echo <<<_ENDF
-               </pre>
+            </pre>
             <script>
                 // When the user clicks on div, open the popup
                 function myFunction() {
@@ -239,7 +246,7 @@ _ENDH;
 _ENDF;
     
  
-    function grid1($conn, $query, $f, $c, $rpp){
+    function grid1($conn, $query, $f, $c){
         //echo "<br>".$query;
         $result = $conn->query($query);
         if (!$result){ 
@@ -250,17 +257,18 @@ _ENDF;
             return;
         }
         $rows = $result->num_rows;//result of query, store number of records as num_row is a field
-        
+        //Display records
         //echo "<table border='1' margin-left: 100px; font-family: verdana; font-size: 10px>";
         echo '<table id="graduates">';
         echo "<tr>";    
-        //Headers with Column Names 
+        //Display Headers with Column Names Selected 
         for ($i = 0 ; $i < sizeof($f); ++$i){
             if ($f[$i] != '')
                 echo '<th>'.$c[$i].'</th>';
         }
         echo "</tr>";
         
+        //Display records
         for ($j = 0 ; $j < $rows ; ++$j)
         { 
             echo "<tr>";
@@ -275,16 +283,16 @@ _ENDF;
           echo "</tr>";
         }              
         echo "</table>";
+        
         $result->close();
         //$conn->close();
         return;
     }
   
   //if columns are selected build the query string
+  //after clicked Submit
   if (isset($_POST['checkcolumns'])){
-    //$columns = '';
     $comma = 0;
-    //$i;  
     $order =0;
     for ($i = 0 ; $i < sizeof($f); ++$i)
     {
@@ -298,7 +306,7 @@ _ENDF;
            $comma++;           
         }
     }
-    //echo "Check Fields: ".$columns;
+    //echo "Check Columns: ".$columns;
     
     $query  = "SELECT ".$columns." FROM degrees_final";
     //if ($ob != '')
@@ -312,33 +320,9 @@ _ENDF;
     else
         $query2 = $query;
             
-    grid1($conn, $query2, $f, $c, $r2);    
+    grid1($conn, $query2, $f, $c);    
   }  
-  
-  if (isset($_POST['next']))
-  {
-    //echo "<br>Next POST Fields: ".cols;
-    
-    $query  = "SELECT ".$cols." FROM degrees_final";
-    if ($ob != '')
-         $query = $query." ORDER BY ".$ob." ".$s;
-    
-    $page1 = pagination();
-    
-    if ($rowspp !== "All")
-        $query2 = $query." LIMIT ".$page1.", ".$rowspp;
-    else
-        $query2 = $query;
-    
-    grid1($conn, $query2, $f, $c, $r2);    
-    
-    echo "<br>Next Query: ".$_POST['query'];
-    echo "<br>Query : ".$query;
-    
-    $result = $conn->query($query2);
-    if (!$result) echo "<br>Next Page failed<br><br>";
-  }
-  
+   
   function pagination(){
         $r2 =$rowspp;
         
