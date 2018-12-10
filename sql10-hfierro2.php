@@ -210,8 +210,15 @@ _ENDH;
         echo '<input type="submit">';    
         
     echo '</pre>';
-    echo '</form>';                  
- 
+    echo '</form>';
+
+    echo '<form action="graduateslogin.php" method="post">';
+    echo '</pre>';
+    //echo 'Login Graduates Page<br>';
+    echo '<input type="submit" value="Login">';
+    echo '</pre>';
+    echo '</form>';
+
     //First time page loads display all records AND 5 COLUMNS
     if (! isset($_POST['checkcolumns']))
     {
@@ -285,7 +292,7 @@ _ENDF;
         echo "</table>";
         
         $result->close();
-        //$conn->close();
+        $conn->close();
         return;
     }
   
