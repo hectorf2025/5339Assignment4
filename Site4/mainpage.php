@@ -1,5 +1,6 @@
 <?php // query.php
 session_start();
+$_SESSION["message"] = "";
 
   if (isset($_POST['id'])) $f[0] = sanitizeString($_POST['id']);
   else $f[0] = '';
@@ -146,7 +147,7 @@ _END;
 _END;
         }
     }
-    echo '<form name="graduates" action="sql10-hfierro2.php" method="post">';
+    echo '<form name="graduates" action="mainpage.php" method="post">';
     echo '<pre>';
     echo '<p>';
     echo 'Select Fields to Display on Grid:';
@@ -239,13 +240,6 @@ _END;
         
     echo '</pre>';
     echo '</form>';
-
-    // echo '<form action="graduateslogin.php" method="post">';
-    // echo '</pre>';
-    // //echo 'Login Graduates Page<br>';
-    // echo '<input type="submit" value="Login">';
-    // echo '</pre>';
-    // echo '</form>';
 
     //First time page loads display all records AND 5 COLUMNS
     if (! isset($_POST['checkcolumns']))

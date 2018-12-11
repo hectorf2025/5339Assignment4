@@ -17,13 +17,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $profile = $_SESSION["profile"];
     $userid = $profile["userid"];
 
-    $profile_query = "UPDATE degrees_final SET yearin='$yearin', graduate='$graduate', college='$college', degree='$degree', title='$title' WHERE id='$userid'";
-    $final_query = "UPDATE degrees_profile SET email='$email', phone='$phone', dob='$dob' WHERE userid='$userid'";
+    $final_query = "UPDATE degrees_final SET yearin='$yearin', graduate='$graduate', college='$college', degree='$degree', title='$title' WHERE id='$userid'";
+    $profile_query = "UPDATE degrees_profile SET email='$email', phone='$phone', dob='$dob' WHERE userid='$userid'";
 
     mysqli_query($conn, $profile_query);
     mysqli_query($conn, $final_query);
 
-    if(mysqli_error())
+    if(mysqli_error($conn))
         $message = "Error: Connection to database unsuccessful";
     else
         $message = "Update Successful!";
