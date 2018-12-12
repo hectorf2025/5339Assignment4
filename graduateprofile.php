@@ -123,12 +123,13 @@ _ENDF;
         //Display records
         //echo "<table border='1' margin-left: 100px; font-family: verdana; font-size: 10px>";
         echo '<table id="graduates">';
-        echo "<tr>";    
+        
+        //echo "<tr>";    
         //Display Headers with Column Names Selected 
-        for ($i = 0 ; $i < sizeof($c); ++$i){
-            echo '<th>'.$c[$i].'</th>';
-        }
-        echo "</tr>";
+        //for ($i = 0 ; $i < sizeof($c); ++$i){
+            //echo '<th>'.$c[$i].'</th>';
+        //}
+        //echo "</tr>";
         
         //Display records
         for ($j = 0 ; $j < $rows ; ++$j)
@@ -136,10 +137,17 @@ _ENDF;
             echo "<tr>";
             for ($k = 0 ; $k < sizeof($c); ++$k){
                 if ($c[$k] != ''){
-                    echo "<td>";
+                    //echo "<td>";
                         $result->data_seek($j);
-                        echo htmlspecialchars($result->fetch_assoc()[$c[$k]]);
-                    echo "</td>";
+                        //echo htmlspecialchars($result->fetch_assoc()[$c[$k]]);
+                        $r = htmlspecialchars($result->fetch_assoc()[$c[$k]]);
+                        //echo "r = ".$r."<br>";
+                        //echo $c[$k];
+                        echo $c[$k]."   :";
+                        echo '<input type="text" name='.$c[$k].' value= '.$r.' disabled>';
+                        echo "<br>";
+                        // <textarea name='.$c[$k].' disabled>';
+                    //echo "</td>";
                 }
             }
           echo "</tr>";

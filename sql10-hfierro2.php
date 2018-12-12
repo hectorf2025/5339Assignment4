@@ -119,6 +119,8 @@ echo <<<_ENDH
 _ENDH;
 	
     echo '<form name="graduates" action="sql10-hfierro2.php" method="post">';
+    echo "<fieldset>";
+    
     echo '<pre>';
     echo '<p>';
     echo 'Select Fields to Display on Grid:';
@@ -171,7 +173,9 @@ _ENDH;
     echo '<input type="checkbox" name="title" value="title"'.$checked7.'/>Title';       
     echo '<br>';
     echo '</p2>';
+    echo "</fieldset>";
     
+    echo "<fieldset>";
     echo '<br>';
         echo '<p>';
         echo "Select a Field to Order By:";
@@ -204,8 +208,8 @@ _ENDH;
             echo '<option value=100>100</option>';
           
 	echo '</select>';
-        echo '<p>';
-        
+    echo '<p>';
+    echo "</fieldset>";
         echo "<input type='hidden' name='checkcolumns' value='yes'>";
         echo '<input type="submit">';    
         
