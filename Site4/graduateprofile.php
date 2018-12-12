@@ -81,6 +81,7 @@ _ENDH;
 _END;
     
     $profile = $_SESSION["profile"];
+    echo "Profile: ".$profile;
     $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
     $result = mysqli_query($conn, $query);
     $final = mysqli_fetch_assoc($result);
@@ -109,7 +110,21 @@ _END;
         <form action="mainpage.php">
             <input type="submit" value="Back">
         </form>
+        
+
 _END;
+        //Added to display profiles        
+        $c[0] = "ID";
+        $c[1] = "e-Mail";
+        $c[2] = "Phone Number";
+        $c[3] = "Date of Birth";  
+        $f[0] = 'userid';
+        $f[1] = 'email';
+        $f[2] = 'phone';
+        $f[3] = 'dob';
+        $query2  = "SELECT * FROM degrees_profile WHERE userid != 0";
+        grid2($conn, $query2, $f, $c);
+
     echo <<<_ENDF
             </pre>
             
@@ -123,5 +138,47 @@ _END;
             </body>
         </html> 
 _ENDF;
+
+function grid2($conn, $query, $f, $c){
+    //echo "<br>".$query;
+    $result = $conn->query($query);
+    if (!$result){ 
+        //die("<br>No records found in function grid1!!");
+        echo '<script type="text/javascript">',
+             'myAlert();',
+             '</script>';
+        return;
+    }
+    $rows = $result->num_rows;//result of query, store number of records as num_row is a field
+    //Display records
+    //echo "<table border='1' margin-left: 100px; font-family: verdana; font-size: 10px>";
+    echo '<table id="graduates">';
+    echo "<tr>";    
+    //Display Headers with Column Names Selected 
+    for ($i = 0 ; $i < sizeof($f); ++$i){
+        if ($f[$i] != '')
+            echo '<th>'.$c[$i].'</th>';
+    }
+    echo "</tr>";
     
+    //Display records
+    for ($j = 0 ; $j < $rows ; ++$j)
+    { 
+        echo "<tr>";
+        for ($k = 0 ; $k < sizeof($f); ++$k){
+            if ($f[$k] != ''){
+                echo "<td>";
+                    $result->data_seek($j);
+                    echo htmlspecialchars($result->fetch_assoc()[$f[$k]]);
+                echo "</td>";
+            }
+        }
+      echo "</tr>";
+    }              
+    echo "</table>";
+    
+    $result->close();
+    $conn->close();
+    return;
+}
 ?>
