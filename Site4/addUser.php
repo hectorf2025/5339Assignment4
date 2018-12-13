@@ -33,8 +33,8 @@
             $email = $_POST['email'];
             $phone = $_POST['phone'];
             $dateOfBirth = $_POST['dob'];
-            $firstname = $_POST['firstname'];
-            $lastname = $_POST['lastname'];
+            //$firstname = $_POST['firstname'];
+            //$lastname = $_POST['lastname'];
 
             $usertype = "";
             if ($_POST['user'] == "regular") {
@@ -45,8 +45,8 @@
             $sql = "INSERT INTO degrees_profile (userid, email, phone, dob, username, registration_date, login_date, administrator)
             VALUES ('$userid', '$email', '$phone', '$dateOfBirth', '$newuser', now(), now(), '$usertype')";
 
-            $sqlTwo = "INSERT INTO degrees_final (id, fname, lname)
-            VALUES ('$userid', '$firstname', '$lastname')";
+            //$sqlTwo = "INSERT INTO degrees_final (id, fname, lname)
+            //VALUES ('$userid', '$firstname', '$lastname')";
 
             //if (mysqli_query($conn, $sql) && mysqli_query($conn, $sqlTwo)) {
             if ($conn->query($sql)) {

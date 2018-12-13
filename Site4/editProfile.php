@@ -14,9 +14,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $phone = $_POST["phone"];
     $dob = $_POST["dob"];
     
-    echo "email! ".$_POST["email"];
-    //echo $email;
-    
     $profile = $_SESSION["profile"];
     $userid = $profile["userid"];
 
@@ -27,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //mysqli_query($conn, $final_query);
     
     if ($conn->query($profile_query)){
-        $message = "Update Successful!";
+        $message = "Update Successful!!";
     } else {
         $message = "Error: " . $profile_query . "<br>" . mysqli_error($conn);
     }

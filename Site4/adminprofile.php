@@ -13,10 +13,6 @@ $username = $_SESSION["username"];
             <b>Hello $username</b> <input type="submit" value="Sign Out">
         </form>
         <form action="addUser.php" method="post">
-            First Name: <input type="text "name="firstname" required>
-            </br>
-            Last Name: <input type="text" name="lastname" required>
-            </br>
             Username: <input type="text" name="username" required>
             </br>
             Password: <input type="text" name="password" required>

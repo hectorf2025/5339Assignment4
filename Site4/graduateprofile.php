@@ -36,7 +36,13 @@ echo <<<_ENDH
                 font-size: 10px;
                 
             }
-  
+            
+            .signup {
+              border:1px solid #4C668C;
+              font:  normal 14px helvetica;
+              color: #444444;
+            }
+            
             #graduates {
                 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
@@ -72,56 +78,97 @@ _ENDH;
     echo $message;
     $profile = $_SESSION["profile"];
     
-    echo "<h3> Hello " . $_SESSION["username"] . "</h3>";
-
+    //echo "<h3> Hello " . $_SESSION["username"] . "</h3>";
     echo <<<_END
-        <form action="signout.php">
-            <input type="submit" value="Logout">
-        </form>
+    <table width="400" align="center" class="signup" border="0" cellpadding="2" cellspacing="5" bgcolor="#B9BEC4">
+      <th colspan="2" align="center">Signed up as regular user</th>
 _END;
+
+        echo "<tr><td>Date of account creation:</td>  
+              <td>".$profile["registration_date"]."</td></tr>"; 
+        echo "<tr><td>Last login: </td>  
+              <td>".$profile["login_date"]."</td></tr>";
+    echo <<<_END
+      
+        <form action="signout.php"></td></tr>
+            <tr><td colspan="2" align="center"><input type="submit" value="Logout"></td></tr>
+        </form>
+        
+        <form action="mainpage.php">
+            <tr><td colspan="2" align="center"><input type="submit" value="Back"></td></tr>
+        </form>
+    </table>
     
+    <table width="400" align="center" class="signup" border="0" cellpadding="2" cellspacing="5" bgcolor="#B9BEC4">
+      <th colspan="2" align="center">Edit Profile Form</th>
+      <form method="post" action="editProfile.php">
+_END;
+
     $profile = $_SESSION["profile"];
-    $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
+        $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
     $result = mysqli_query($conn, $query);
     $final = mysqli_fetch_assoc($result);
 
-    echo <<<_END
-        <form action="editProfile.php" method='post'>
-        <h3> Personal Information </h3>
+        echo "<tr><td>ID</td>  
+              <td><input type='text' maxlength='11' name='userid' value=".$profile['userid']." disabled></td></tr>";
+        echo "<tr><td>User Name</td>  
+              <td><input type='text' maxlength='20' name='username' value=".$_SESSION["username"]." disabled></td></tr>";
+        echo "<tr><td>Forename</td>  
+              <td><input type='text' maxlength='35' name='fname' value=".$final['fname']." disabled></td></tr>";
+        echo "<tr><td>Surname</td>
+              <td><input type='text' maxlength='35' name='lname' value=".$final['lname']." disabled></td></tr>";
+        echo "<tr><td> e-mail</td>  
+              <td><input type='text' maxlength='25' name='email' value=".$profile['email']."></td></tr>";
+        echo "<tr><td>Phone</td>";
+        echo "  <td><input type='text' maxlength='12' name='phone' value=".$profile['phone']."></td></tr>";
+        echo "<tr><td>Date of Birth</td>";
+        echo "<td><input type='date' name='dob' value=".$profile['dob']."></td></tr>";
+        
+        echo <<<_END
+          <tr><td colspan="2" align="center"><input type="submit" value="Update Profile"></td></tr>
+          <tr><td colspan="2" align="center"><input type="reset" value="Reset"></td></tr>
+        
+      </form>
+    </table>
+    
 _END;
-
+        /*
         echo "<b>" . $final["fname"] . " " . $final["lname"] . "</b> </br>";
+        echo "       E-Mail: <input type='text' name='email' value=". $profile["email"] ." ><br>"; 
+        echo "        Phone: <input type='text' name='phone' value=". $profile["phone"] ."><br>"; 
+        echo "Date of birth:<input type='date' name='dob' value=". $profile["dob"] ."><br>";
+        
         echo "<i>Date of account creation: </i>" . $profile["registration_date"] . "</br>"; 
         echo "<i>Last login: </i>" . $profile["login_date"] . "</br>";
-        //echo "<input type='text' name='yearin'> <i>Classification: </i>" . $final["yearin"] . "</br>"; 
-        //echo "<input type='text' name='graduate'> <i>Graduate: </i>" . $final["graduate"] . "</br>"; 
-        //echo "<input type='text' name='college'> <i>College: </i>" . $final["college"] . "</br>"; 
-        //echo "<input type='text' name='degree'> <i>Degree: </i>" . $final["degree"] . "</br>"; 
-        //echo "<input type='text' name='title'> <i>Title: </i>" . $final["title"] . "</br>";
-        echo "E-Mail:<input type='text' name='email' value=". $profile["email"] ." > </br>"; 
-        echo "Phone:<input type='text' name='phone' value=". $profile["phone"] ."> </br>"; 
-        echo "Date of birth:<input type='date' name='dob' value=". $profile["dob"] ."> </br>";
-
-    echo <<<_END
+        
+        echo <<<_END
             <input type="submit" value="Edit Profile">
             <input type="reset" value="Reset">
         </form>
         <form action="mainpage.php">
             <input type="submit" value="Back">
         </form>
-        
-
-_END;
+_END;*/
         //Added to display profiles        
         $c[0] = "ID";
-        $c[1] = "e-Mail";
-        $c[2] = "Phone Number";
-        $c[3] = "Date of Birth";  
+        $c[1] = "Name";
+        $c[2] = "Last Name";
+        $c[3] = "e-Mail";
+        $c[4] = "Phone Number";
+        $c[5] = "Date of Birth";  
+        
         $f[0] = 'userid';
-        $f[1] = 'email';
-        $f[2] = 'phone';
-        $f[3] = 'dob';
-        $query2  = "SELECT * FROM degrees_profile WHERE userid != 0";
+        $f[1] = 'fname';
+        $f[2] = 'lname';
+        $f[3] = 'email';
+        $f[4] = 'phone';
+        $f[5] = 'dob';
+        //$query2  = "SELECT * FROM degrees_profile";
+        
+        $query2 = "SELECT degrees_profile.userid, degrees_final.fname, degrees_final.lname, 
+        degrees_profile.email, degrees_profile.phone, degrees_profile.dob
+        FROM degrees_profile INNER JOIN degrees_final 
+        ON degrees_profile.userid = degrees_final.id ORDER BY degrees_profile.userid";
         grid2($conn, $query2, $f, $c);
 
     echo <<<_ENDF
