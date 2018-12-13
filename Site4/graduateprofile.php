@@ -80,7 +80,6 @@ _ENDH;
         </form>
 _END;
     
-    //$profile = $_SESSION["profile"];
     $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
     $result = mysqli_query($conn, $query);
     $final = mysqli_fetch_assoc($result);
@@ -93,11 +92,6 @@ _END;
         echo "<b>" . $final["fname"] . " " . $final["lname"] . "</b> </br>";
         echo "<i>Date of account creation: </i>" . $profile["registration_date"] . "</br>"; 
         echo "<i>Last login: </i>" . $profile["login_date"] . "</br>";
-        //echo "<input type='text' name='yearin'> <i>Classification: </i>" . $final["yearin"] . "</br>"; 
-        //echo "<input type='text' name='graduate'> <i>Graduate: </i>" . $final["graduate"] . "</br>"; 
-        //echo "<input type='text' name='college'> <i>College: </i>" . $final["college"] . "</br>"; 
-        //echo "<input type='text' name='degree'> <i>Degree: </i>" . $final["degree"] . "</br>"; 
-        //echo "<input type='text' name='title'> <i>Title: </i>" . $final["title"] . "</br>";
         echo "E-Mail:<input type='text' name='email' value=". $profile["email"] ." > </br>"; 
         echo "Phone:<input type='text' name='phone' value=". $profile["phone"] ."> </br>"; 
         echo "Date of birth:<input type='date' name='dob' value=". $profile["dob"] ."> </br>";

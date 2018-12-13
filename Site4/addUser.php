@@ -4,18 +4,6 @@
 
     $salt = "!@#$8301$%^&";
 
-
-            // $newuser = "jperez" . "12345";
-            // $newuser = $salt . $newuser;                                        // Add salt to $newuser
-            // $newuser = hash('md5', $newuser, false); 
-            // $userid = '123456';
-            // $email = 'jperez@miners.utep.edu';
-            // $phone = '915 246 4560';
-            // $usertype = 0;
-            // $sql = "INSERT INTO degrees_profile (userid, email, phone, dob, username, registration_date, login_date, administrator)
-            // VALUES ('$userid', '$email', '$phone', now(), '$newuser', now(), now(), '$usertype')";
-            // mysqli_query($conn, $sql);
-
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $newuser = $_POST["username"] . $_POST["password"];                 // Combine username and password
         $newuser = $salt . $newuser;                                        // Add salt to $newuser
@@ -49,7 +37,6 @@
             VALUES ('$userid', '$firstname', '$lastname')";
 
             if (mysqli_query($conn, $sql) && mysqli_query($conn, $sqlTwo)) {
-            // if ($conn->query($sql)) {
                 $message = "New record created successfully";
             } else {
                 $message = "Error: " . $sql . "<br>" . mysqli_error($conn);
