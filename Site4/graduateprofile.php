@@ -99,6 +99,7 @@ _END;
         </form>
     </table>
     
+<<<<<<< HEAD
     <table width="400" align="center" class="signup" border="0" cellpadding="2" cellspacing="5" bgcolor="#B9BEC4">
       <th colspan="2" align="center">Edit Profile Form</th>
       <form method="post" action="editProfile.php">
@@ -106,6 +107,9 @@ _END;
 
     $profile = $_SESSION["profile"];
         $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
+=======
+    $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
+>>>>>>> ccfff0a88253c056a3a053a1cf1f5166e5c4c4af
     $result = mysqli_query($conn, $query);
     $final = mysqli_fetch_assoc($result);
 
@@ -140,8 +144,16 @@ _END;
         
         echo "<i>Date of account creation: </i>" . $profile["registration_date"] . "</br>"; 
         echo "<i>Last login: </i>" . $profile["login_date"] . "</br>";
+<<<<<<< HEAD
         
         echo <<<_END
+=======
+        echo "E-Mail:<input type='text' name='email' value=". $profile["email"] ." > </br>"; 
+        echo "Phone:<input type='text' name='phone' value=". $profile["phone"] ."> </br>"; 
+        echo "Date of birth:<input type='date' name='dob' value=". $profile["dob"] ."> </br>";
+
+    echo <<<_END
+>>>>>>> ccfff0a88253c056a3a053a1cf1f5166e5c4c4af
             <input type="submit" value="Edit Profile">
             <input type="reset" value="Reset">
         </form>
