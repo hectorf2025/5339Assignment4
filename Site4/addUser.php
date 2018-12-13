@@ -48,8 +48,8 @@
             $sqlTwo = "INSERT INTO degrees_final (id, fname, lname)
             VALUES ('$userid', '$firstname', '$lastname')";
 
-            //if (mysqli_query($conn, $sql) && mysqli_query($conn, $sqlTwo)) {
-            if ($conn->query($sql)) {
+            if (mysqli_query($conn, $sql) && mysqli_query($conn, $sqlTwo)) {
+            // if ($conn->query($sql)) {
                 $message = "New record created successfully";
             } else {
                 $message = "Error: " . $sql . "<br>" . mysqli_error($conn);

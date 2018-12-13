@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $user = $salt . $_SESSION["username"] . $_SESSION["password"];      // Combines username, password and adds a salt
     $user = hash('md5', $user, false);                                  // Hash $user
 
-    $sql = "SELECT * FROM accounts WHERE username = '$user'";           // Query $user
+    $sql = "SELECT * FROM degrees_profile WHERE username = '$user'";           // Query $user
     $result = mysqli_query($conn, $sql);                                // Process query in DB
 
     $row = mysqli_fetch_assoc($result);

@@ -129,7 +129,7 @@ _END;
     } else {
         if ($_SESSION["admin"]) {
     echo <<<_END
-    <form method="post" action="addUser.php">
+    <form method="post" action="adminprofile.php">
         <input type="submit" value="Add New User">
     </form>
     <form method="post" action="signout.php">

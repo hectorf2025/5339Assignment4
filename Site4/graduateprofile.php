@@ -80,7 +80,7 @@ _ENDH;
         </form>
 _END;
     
-    $profile = $_SESSION["profile"];
+    //$profile = $_SESSION["profile"];
     $query  = "SELECT * FROM degrees_final WHERE id = ".$profile['userid'];
     $result = mysqli_query($conn, $query);
     $final = mysqli_fetch_assoc($result);
